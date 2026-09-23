@@ -6,17 +6,11 @@ Cleat rents ID-verified US mobile numbers that receive SMS/2FA codes and transcr
 
 ## Install
 
-Node 20 or newer. This is not on npm; clone it.
-
-```bash
-git clone https://github.com/davidcleat/cleat-mcp.git
-cd cleat-mcp
-npm install
-```
+Node 20 or newer. Published as [`cleatapi-mcp`](https://www.npmjs.com/package/cleatapi-mcp); nothing to clone unless you want to change it.
 
 ## Use it
 
-Add this to your MCP client's config, with the absolute path to your clone, and restart the client.
+Add this to your MCP client's config and restart the client. `npx` fetches the server the first time it runs.
 
 **Claude Desktop** — `claude_desktop_config.json` (macOS: `~/Library/Application Support/Claude/`, Windows: `%APPDATA%\Claude\`):
 
@@ -24,8 +18,8 @@ Add this to your MCP client's config, with the absolute path to your clone, and 
 {
   "mcpServers": {
     "cleat": {
-      "command": "node",
-      "args": ["/absolute/path/to/cleat-mcp/bin/cleat-mcp.js"],
+      "command": "npx",
+      "args": ["-y", "cleatapi-mcp"],
       "env": {
         "CLEAT_API_KEY": "clt_your_api_key"
       }
@@ -40,8 +34,8 @@ Add this to your MCP client's config, with the absolute path to your clone, and 
 {
   "mcpServers": {
     "cleat": {
-      "command": "node",
-      "args": ["/absolute/path/to/cleat-mcp/bin/cleat-mcp.js"],
+      "command": "npx",
+      "args": ["-y", "cleatapi-mcp"],
       "env": { "CLEAT_API_KEY": "clt_your_api_key" }
     }
   }
@@ -54,7 +48,14 @@ Check it before you wire it up — this prints the tool list and exits:
 printf '%s\n%s\n' \
   '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"smoke","version":"0"}}}' \
   '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
-  | CLEAT_API_KEY=clt_your_api_key node bin/cleat-mcp.js
+  | CLEAT_API_KEY=clt_your_api_key npx -y cleatapi-mcp
+```
+
+To run it from a clone instead — which is the point of it being here — use `"command": "node"` with `"args": ["/absolute/path/to/cleat-mcp/bin/cleat-mcp.js"]`:
+
+```bash
+git clone https://github.com/davidcleat/cleat-mcp.git
+cd cleat-mcp && npm install && npm test
 ```
 
 Then ask for the code:
@@ -89,7 +90,7 @@ Cleat already runs a hosted MCP server at `https://cleat.so/api/mcp`, listed in 
 | | Hosted (`https://cleat.so/api/mcp`) | This package (local, stdio) |
 | --- | --- | --- |
 | Transport | HTTP JSON-RPC | stdio — works with clients that only speak stdio |
-| Install | none | Node 20+ and a clone |
+| Install | none | `npx -y cleatapi-mcp`, or a clone to change it |
 | Where the key lives | in your client's headers config | in your client's `env` block, on your machine |
 | Who Cleat sees | your client's requests | your machine's requests |
 | `wait_for_code` ceiling | 55 seconds | 300 seconds, subject to your client's own request timeout |

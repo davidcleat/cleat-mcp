@@ -1,35 +1,46 @@
 {
-  "name": "cleat-mcp",
+  "name": "cleatapi-mcp",
   "version": "0.1.0",
   "description": "Local MCP server that reads verification codes from your own Cleat US mobile line.",
   "license": "MIT",
-  "type": "module",
-  "bin": {
-    "cleat-mcp": "bin/cleat-mcp.js"
-  },
-  "scripts": {
-    "test": "node --test test/*.test.js",
-    "start": "node bin/cleat-mcp.js"
-  },
-  "engines": {
-    "node": ">=20"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.1"
-  },
-  "keywords": [
-    "mcp",
-    "model-context-protocol",
-    "cleat",
-    "sms",
-    "2fa",
-    "verification-code"
-  ],
+  "author": "Hyppe Tech LLC",
+  "homepage": "https://cleat.so/for/developers",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davidcleat/cleat-mcp.git"
   },
-  "homepage": "https://cleat.so/for/developers",
-  "private": false,
-  "main": "src/index.js"
+  "bugs": "https://github.com/davidcleat/cleat-mcp/issues",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "cleat",
+    "sms",
+    "2fa",
+    "otp",
+    "verification-code",
+    "ai-agents"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "bin": {
+    "cleatapi-mcp": "bin/cleat-mcp.js",
+    "cleat-mcp": "bin/cleat-mcp.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "start": "node bin/cleat-mcp.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.1"
+  }
 }
