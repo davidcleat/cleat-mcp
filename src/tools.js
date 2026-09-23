@@ -110,15 +110,22 @@ function clamp(value, min, max, fallback) {
   return Math.min(max, Math.max(min, Math.trunc(number)));
 }
 
+/**
+ * One message, in exactly the shape the REST API and the hosted MCP server return, so a
+ * prompt written against one server reads the same fields on the other. Nothing is
+ * flattened or dropped here: `service` and `contact` stay objects, `line` stays.
+ */
 function publicMessage(message) {
   return {
     id: message.id,
+    line: message.line ?? null,
     from: message.from,
     body: message.body,
     code: message.code ?? null,
     receivedAt: message.receivedAt,
+    service: message.service ?? null,
+    contact: message.contact ?? null,
     label: message.label ?? null,
-    service: message.service?.id ?? null,
   };
 }
 

@@ -83,6 +83,28 @@ test("latest_code returns the newest code, and reports honestly when there is no
   assert.equal(missing.found, false);
 });
 
+test("a returned message carries the same fields the REST API returns", async () => {
+  const { handlers } = setup({
+    messages: [
+      message({
+        id: "shaped",
+        body: "704118 is your Facebook code",
+        code: "704118",
+        receivedAt: "2026-09-23T10:00:00.000Z",
+        service: { id: "facebook", name: "Facebook", color: "#0866FF" },
+        label: "Facebook",
+      }),
+    ],
+  });
+
+  const { messages } = await handlers.list_messages({ lineId: LINE_ID });
+  assert.deepEqual(Object.keys(messages[0]).sort(), ["body", "code", "contact", "from", "id", "label", "line", "receivedAt", "service"]);
+  // service stays an object, as it is over REST and on the hosted server.
+  assert.equal(messages[0].service.name, "Facebook");
+  assert.equal(messages[0].line.phone, "13055550100");
+  assert.equal(messages[0].contact, null);
+});
+
 test("latest_code can be narrowed to one service", async () => {
   const { handlers } = setup({
     messages: [
