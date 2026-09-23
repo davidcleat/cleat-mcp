@@ -1,6 +1,7 @@
 {
   "name": "cleatapi-mcp",
-  "version": "0.1.0",
+  "mcpName": "so.cleat/cleat",
+  "version": "0.1.1",
   "description": "Local MCP server that reads verification codes from your own Cleat US mobile line.",
   "license": "MIT",
   "author": "Hyppe Tech LLC",
